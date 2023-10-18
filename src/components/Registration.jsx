@@ -1,5 +1,5 @@
 import React, {useState } from 'react'
-import { NavLink, Route} from 'react-router-dom'
+import Students from './Students'
 export default function Registration() {
     const [name,nextName] = useState('')
     const [age,nextAge] = useState('')
@@ -12,8 +12,9 @@ const register = (e)=>{
     nextData([...data,{name,age,country,description}])
 }
     return(
-        <div>
-            <form className='grid gap-5' onSubmit={register}>
+        <div className='flex justify-center w-full'>
+        <div className='grid gap-20'>
+            <form className='grid gap-5 bg-indigo-600 px-20 py-10 rounded-xl  h-96' onSubmit={register}>
                 <label>Names<input className='border' type='text' required onChange={(e)=>nextName(e.target.value)}/></label>
                 <label>Age<input className='border' type='text' required onChange={(e)=>nextAge(e.target.value)}/></label>
                 <select className='border' value={country} onChange={(e)=> nextCountry(e.target.value)}>
@@ -26,25 +27,32 @@ const register = (e)=>{
                 <input className='border' type='submit'/>
             </form> 
             <div>
-            <table className='border gap-3'>
-                <tr className='gap-3 border'>
-                <th>Names</th>
-                <th>Age</th>
-                <th>Country</th>
-                <th>Description</th>
-                </tr>
+            <table className='table-auto border border-slate-500'>
+                <thead>
+                    <tr className=''>
+                    <th className='border border-slate-600'>Names</th>
+                    <th className='border border-slate-600'>Age</th>
+                    <th className='border border-slate-600'>Country</th>
+                    <th className='border border-slate-600'>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
             {data.map((item,index)=>{
                 return(
-                    <tr key={index} className='gap-3 border'>
-                        <td>{item.name}</td>
-                        <td>{item.age}</td>
-                        <td>{item.country}</td>
-                        <td>{item.description}</td>
+                    
+                    <tr key={index} className=''>
+                        <td className='border border-slate-700'>{item.name}</td>
+                        <td className='border border-slate-700'>{item.age}</td>
+                        <td className='border border-slate-700'>{item.country}</td>
+                        <td className='border border-slate-700'>{item.description}</td>
                     </tr>
+                    
                 )
             })}
+            </tbody>
             </table>
             </div>
+        </div>
         </div>
 ) 
 }
