@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import React, {useState } from 'react'
+import { NavLink, Route} from 'react-router-dom'
 export default function Registration() {
     const [name,nextName] = useState('')
     const [age,nextAge] = useState('')
@@ -7,15 +7,12 @@ export default function Registration() {
     const [country,nextCountry] = useState('')
     const [description,nextDescription] = useState('')
 
-let stu = []
 const register = (e)=>{
     e.preventDefault();
     nextData([...data,{name,age,country,description}])
 }
     return(
         <div>
-            <NavLink to='/' >Register</NavLink>
-            <NavLink to='/View' >View Students</NavLink>
             <form className='grid gap-5' onSubmit={register}>
                 <label>Names<input className='border' type='text' required onChange={(e)=>nextName(e.target.value)}/></label>
                 <label>Age<input className='border' type='text' required onChange={(e)=>nextAge(e.target.value)}/></label>

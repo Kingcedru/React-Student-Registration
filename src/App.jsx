@@ -1,17 +1,24 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { createBrowserRouter, createRoutesFromElements,Route, RouterProvider } from 'react-router-dom'
 import './App.css'
 import Registration from './components/Registration'
+import Students from './components/Students'
+import RootLayout from './layouts/RootLayout'
 
 function App() {
-  const [count, setCount] = useState(0)
-
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route path="/" element={<RootLayout/>}>
+        <Route index element={<Registration/>} />
+        <Route path="students" element={<Students/>} />
+      </Route>
+    )
+  )
   return (
-    
-    <div className='flex justify-center'>
-      <Registration/>
-    </div>
+    <>
+      <div >
+        <RouterProvider router={router}/>
+      </div>
+    </>
   )
 }
 
