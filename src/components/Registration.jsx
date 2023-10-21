@@ -1,15 +1,15 @@
 import { useState } from "react";
-import { json } from "react-router-dom";
+ 
 export default function Registration() {
   const [name, nextName] = useState("");
   const [age, nextAge] = useState("");
-  const [data, nextData] = useState(JSON.parse(localStorage.getItem('students')||""));
+  const [data, nextData] = useState(JSON.parse(localStorage.getItem('students')||"[]"));
   const [country, nextCountry] = useState("");
   const [description, nextDescription] = useState("");
 
   const register = (e) => {
     e.preventDefault();
-    nextData([...data, { name, age, country, description}]);
+    nextData([...data, { name, age, country, description }]);
     nextName("");
     nextAge("");
     nextCountry("");
@@ -17,9 +17,6 @@ export default function Registration() {
     localStorage.setItem('students',JSON.stringify(data))
   };
   
-  const deleteStudent = (id) => {
-    return nextData(data.filter((item, index) => index !== id));
-  };
   return (
     <div className="flex justify-center w-full">
       <div className="grid gap-20">
@@ -64,7 +61,50 @@ export default function Registration() {
             type="submit"
           />
         </form>
-        
+        <div>
+          <table className=" border border-slate-500">
+            <thead className="">
+              <tr className="">
+                <th className="border border-slate-600 px-10">Names</th>
+                <th className="border border-slate-600 px-10">Age</th>
+                <th className="border border-slate-600 px-10">Country</th>
+                <th className="border border-slate-600 px-10">Description</th>
+                <th className="border border-slate-600 px-10">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {data?.map((item, index) => {
+                return (
+                  <tr key={index} className="">
+                    <td className="border border-slate-700 px-10">
+                      {item.name}
+                    </td>
+                    <td className="border border-slate-700 px-10">
+                      {item.age}
+                    </td>
+                    <td className="border border-slate-700 px-10">
+                      {item.country}
+                    </td>
+                    <td className="border border-slate-700 px-10">
+                      {item.description}
+                    </td>
+                    <td className="border border-slate-700 px-10">
+                      <select>
+                        <option value="">Pending</option>
+                        <option value="pending">Edit</option>
+                        <option>
+                          <button onClick={() => deleteStudent(index)}>
+                            Deletee
+                          </button>
+                        </option>
+                      </select>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
